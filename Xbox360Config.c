@@ -13,6 +13,7 @@
 #include "Xbox360Config.h"
 #include "Xbox360Log.h"
 #include "KeyBoard.h"
+#include "Xbox360KeyNames.h"
 
 //
 // Global configuration
@@ -375,124 +376,56 @@ ParseIniConfig (
       Config->TriggerThreshold = (UINT8)AsciiStrDecimalToUintn(Value);
     }
     else if (AsciiStrCmp(Key, "LeftTrigger") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->LeftTriggerKey = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->LeftTriggerKey = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->LeftTriggerKey = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "RightTrigger") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->RightTriggerKey = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->RightTriggerKey = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->RightTriggerKey = ParseKeyValue(Value);
     }
     // Parse button mappings
     else if (AsciiStrCmp(Key, "ButtonDpadUp") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[0] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[0] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[0] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonDpadDown") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[1] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[1] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[1] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonDpadLeft") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[2] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[2] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[2] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonDpadRight") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[3] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[3] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[3] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonStart") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[4] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[4] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[4] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonBack") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[5] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[5] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[5] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonLeftThumb") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[6] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[6] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[6] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonRightThumb") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[7] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[7] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[7] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonLeftShoulder") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[8] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[8] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[8] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonRightShoulder") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[9] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[9] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[9] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonGuide") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[10] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[10] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[10] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonA") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[12] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[12] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[12] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonB") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[13] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[13] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[13] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonX") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[14] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[14] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[14] = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "ButtonY") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->ButtonMap[15] = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->ButtonMap[15] = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->ButtonMap[15] = ParseKeyValue(Value);
     }
     // Parse custom devices (Device1=, Device2=, etc.)
     else if ((AsciiStrnCmp(Key, "Device", 6) == 0) && (DeviceIndex < MAX_CUSTOM_DEVICES)) {
@@ -531,32 +464,16 @@ ParseIniConfig (
       Config->LeftStick.DirectionMode = (UINT8)AsciiStrDecimalToUintn(Value);
     }
     else if (AsciiStrCmp(Key, "LeftStickUpMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->LeftStick.UpMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->LeftStick.UpMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->LeftStick.UpMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "LeftStickDownMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->LeftStick.DownMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->LeftStick.DownMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->LeftStick.DownMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "LeftStickLeftMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->LeftStick.LeftMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->LeftStick.LeftMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->LeftStick.LeftMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "LeftStickRightMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->LeftStick.RightMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->LeftStick.RightMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->LeftStick.RightMapping = ParseKeyValue(Value);
     }
     // Parse right stick configuration
     else if (AsciiStrCmp(Key, "RightStickMode") == 0) {
@@ -589,32 +506,16 @@ ParseIniConfig (
       Config->RightStick.DirectionMode = (UINT8)AsciiStrDecimalToUintn(Value);
     }
     else if (AsciiStrCmp(Key, "RightStickUpMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->RightStick.UpMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->RightStick.UpMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->RightStick.UpMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "RightStickDownMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->RightStick.DownMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->RightStick.DownMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->RightStick.DownMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "RightStickLeftMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->RightStick.LeftMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->RightStick.LeftMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->RightStick.LeftMapping = ParseKeyValue(Value);
     }
     else if (AsciiStrCmp(Key, "RightStickRightMapping") == 0) {
-      if ((AsciiStrnCmp(Value, "0x", 2) == 0) || (AsciiStrnCmp(Value, "0X", 2) == 0)) {
-        Config->RightStick.RightMapping = (UINT8)AsciiStrHexToUintn(Value + 2);
-      } else {
-        Config->RightStick.RightMapping = (UINT8)AsciiStrHexToUintn(Value);
-      }
+      Config->RightStick.RightMapping = ParseKeyValue(Value);
     }
     // Parse scroll sensitivity for both sticks
     else if (AsciiStrCmp(Key, "LeftStickScrollSensitivity") == 0) {
@@ -788,48 +689,46 @@ GenerateConfigTemplate (
     "# TriggerThreshold: 0-255 (default: 128)\r\n"
     "TriggerThreshold=128\r\n"
     "\r\n"
-    "# Trigger key mappings (USB HID scan codes or mouse functions)\r\n"
-    "# Mouse function codes:\r\n"
-    "#   0xF0 = Mouse Left Button\r\n"
-    "#   0xF1 = Mouse Right Button\r\n"
-    "#   0xF2 = Mouse Middle Button (reserved)\r\n"
-    "#   0xF3 = Scroll Wheel Up\r\n"
-    "#   0xF4 = Scroll Wheel Down\r\n"
-    "# Keyboard key codes: 0x00-0xE7 (see USB HID spec)\r\n"
+    "# Trigger key mappings (semantic names or hex codes)\r\n"
+    "# Mouse functions: MouseLeft, MouseRight, MouseMiddle, ScrollUp, ScrollDown\r\n"
+    "# Keyboard keys: KeyEnter, KeyEscape, KeySpace, KeyA-KeyZ, Key0-Key9,\r\n"
+    "#                KeyUp/Down/Left/Right, KeyPageUp/PageDown, KeyHome/End, etc.\r\n"
+    "# Hex codes: 0x00-0xE7 (USB HID spec) or 0xF0-0xF4 (mouse functions)\r\n"
+    "# Set to 'Disabled' or 0xFF to disable\r\n"
     "\r\n"
     "# Default: Triggers as mouse buttons (recommended for mouse mode)\r\n"
-    "RightTrigger=0xF0         # Mouse Left Button\r\n"
-    "LeftTrigger=0xF1          # Mouse Right Button\r\n"
+    "RightTrigger=MouseLeft\r\n"
+    "LeftTrigger=MouseRight\r\n"
     "\r\n"
     "# Alternative: Use as keyboard keys\r\n"
-    "# RightTrigger=0x4D        # End key\r\n"
-    "# LeftTrigger=0x4C         # Delete key\r\n"
+    "# RightTrigger=KeyEnd\r\n"
+    "# LeftTrigger=KeyDelete\r\n"
     "\r\n"
     "# Button Mappings (Optional)\r\n"
     "# Uncomment and modify to customize button mappings\r\n"
     "# If not specified, defaults shown in comments are used\r\n"
-    "# Set to 0xFF to disable a button\r\n"
+    "# Set to 'Disabled' to disable a button\r\n"
     "#\r\n"
     "# Default mappings:\r\n"
-    "# ButtonDpadUp=0x52          # Up Arrow\r\n"
-    "# ButtonDpadDown=0x51        # Down Arrow\r\n"
-    "# ButtonDpadLeft=0x50        # Left Arrow\r\n"
-    "# ButtonDpadRight=0x4F       # Right Arrow\r\n"
-    "# ButtonStart=0x2C           # Space\r\n"
-    "# ButtonBack=0x2B            # Tab\r\n"
-    "# ButtonLeftThumb=0xE0       # Left Control\r\n"
-    "# ButtonRightThumb=0xE2      # Left Alt\r\n"
-    "# ButtonLeftShoulder=0x4B    # Page Up\r\n"
-    "# ButtonRightShoulder=0x4E   # Page Down\r\n"
-    "# ButtonGuide=0xE1           # Left Shift\r\n"
-    "# ButtonA=0x28               # Enter\r\n"
-    "# ButtonB=0x29               # Escape\r\n"
-    "# ButtonX=0x2A               # Backspace\r\n"
-    "# ButtonY=0x2B               # Tab\r\n"
+    "# ButtonDpadUp=KeyUp\r\n"
+    "# ButtonDpadDown=KeyDown\r\n"
+    "# ButtonDpadLeft=KeyLeft\r\n"
+    "# ButtonDpadRight=KeyRight\r\n"
+    "# ButtonStart=KeySpace\r\n"
+    "# ButtonBack=KeyTab\r\n"
+    "# ButtonLeftThumb=KeyLeftCtrl\r\n"
+    "# ButtonRightThumb=KeyLeftAlt\r\n"
+    "# ButtonLeftShoulder=KeyPageUp\r\n"
+    "# ButtonRightShoulder=KeyPageDown\r\n"
+    "# ButtonGuide=KeyLeftShift\r\n"
+    "# ButtonA=KeyEnter\r\n"
+    "# ButtonB=KeyEscape\r\n"
+    "# ButtonX=KeyBackspace\r\n"
+    "# ButtonY=KeyTab\r\n"
     "#\r\n"
     "# Example: Swap A and B buttons\r\n"
-    "# ButtonA=0x29               # Escape\r\n"
-    "# ButtonB=0x28               # Enter\r\n"
+    "# ButtonA=KeyEscape\r\n"
+    "# ButtonB=KeyEnter\r\n"
     "\r\n"
     "# ==================\r\n"
     "# Analog Stick Configuration\r\n"
@@ -846,10 +745,10 @@ GenerateConfigTemplate (
     "\r\n"
     "# Keys mode settings (only when LeftStickMode=Keys)\r\n"
     "# LeftStickDirectionMode=4       # 4=4-way, 8=8-way diagonal support\r\n"
-    "# LeftStickUpMapping=0x52        # Up Arrow\r\n"
-    "# LeftStickDownMapping=0x51      # Down Arrow\r\n"
-    "# LeftStickLeftMapping=0x50      # Left Arrow\r\n"
-    "# LeftStickRightMapping=0x4F     # Right Arrow\r\n"
+    "# LeftStickUpMapping=KeyUp\r\n"
+    "# LeftStickDownMapping=KeyDown\r\n"
+    "# LeftStickLeftMapping=KeyLeft\r\n"
+    "# LeftStickRightMapping=KeyRight\r\n"
     "\r\n"
     "# Right Stick (default: Scroll mode)\r\n"
     "RightStickMode=Scroll\r\n"
@@ -859,10 +758,10 @@ GenerateConfigTemplate (
     "# Alternative: Use as direction keys\r\n"
     "# RightStickMode=Keys\r\n"
     "# RightStickDirectionMode=4       # 4=4-way, 8=8-way\r\n"
-    "# RightStickUpMapping=0x1A        # W\r\n"
-    "# RightStickDownMapping=0x16      # S\r\n"
-    "# RightStickLeftMapping=0x04      # A\r\n"
-    "# RightStickRightMapping=0x07     # D\r\n"
+    "# RightStickUpMapping=KeyW\r\n"
+    "# RightStickDownMapping=KeyS\r\n"
+    "# RightStickLeftMapping=KeyA\r\n"
+    "# RightStickRightMapping=KeyD\r\n"
     "\r\n"
     "# Alternative: Disable right stick\r\n"
     "# RightStickMode=Disabled\r\n"
@@ -870,7 +769,7 @@ GenerateConfigTemplate (
     "# Common scenarios:\r\n"
     "# - Complete mouse control (default):\r\n"
     "#     LeftStickMode=Mouse, RightStickMode=Scroll\r\n"
-    "#     RightTrigger=0xF0 (left click), LeftTrigger=0xF1 (right click)\r\n"
+    "#     RightTrigger=MouseLeft, LeftTrigger=MouseRight\r\n"
     "# - BIOS/GRUB navigation:\r\n"
     "#     LeftStickMode=Keys, RightStickMode=Disabled\r\n"
     "# - Dual stick control:\r\n"

@@ -22,53 +22,50 @@ Deadzone=8000
 # Triggers will activate when their value exceeds this threshold
 TriggerThreshold=128
 
-# Trigger mappings (USB HID scan codes OR mouse function codes)
-# Mouse function codes:
-#   0xF0 = Mouse Left Button
-#   0xF1 = Mouse Right Button
-#   0xF2 = Mouse Middle Button (reserved)
-#   0xF3 = Scroll Wheel Up
-#   0xF4 = Scroll Wheel Down
-# Keyboard key codes: 0x00-0xE7 (see USB HID spec below)
-# Set to 0xFF to disable a trigger
+# Trigger mappings (semantic names or hex codes)
+# Mouse functions: MouseLeft, MouseRight, MouseMiddle, ScrollUp, ScrollDown
+# Keyboard keys: KeyEnter, KeyEscape, KeySpace, KeyA-KeyZ, Key0-Key9,
+#                KeyUp/Down/Left/Right, KeyPageUp/PageDown, KeyHome/End, etc.
+# Hex codes: 0x00-0xE7 (USB HID spec) or 0xF0-0xF4 (mouse functions)
+# Set to 'Disabled' or 0xFF to disable
 #
 # Default: Triggers as mouse buttons (recommended for mouse mode)
-RightTrigger=0xF0         # Mouse Left Button
-LeftTrigger=0xF1          # Mouse Right Button
+RightTrigger=MouseLeft
+LeftTrigger=MouseRight
 
 # Alternative: Use as keyboard keys
-# RightTrigger=0x4D       # End key
-# LeftTrigger=0x4C        # Delete key
+# RightTrigger=KeyEnd
+# LeftTrigger=KeyDelete
 
 # ==================
 # Button Mappings (Optional)
 # ==================
 # Customize button-to-key mappings for all Xbox 360 controller buttons.
 # If not specified, the default mappings shown below are used.
-# Set to 0xFF to disable a button.
+# Set to 'Disabled' (or 0xFF) to disable a button.
 #
 # Default Button Mappings:
-#   ButtonDpadUp=0x52          # Up Arrow
-#   ButtonDpadDown=0x51        # Down Arrow
-#   ButtonDpadLeft=0x50        # Left Arrow
-#   ButtonDpadRight=0x4F       # Right Arrow
-#   ButtonStart=0x2C           # Space
-#   ButtonBack=0x2B            # Tab
-#   ButtonLeftThumb=0xE0       # Left Control (L3)
-#   ButtonRightThumb=0xE2      # Left Alt (R3)
-#   ButtonLeftShoulder=0x4B    # Page Up (LB)
-#   ButtonRightShoulder=0x4E   # Page Down (RB)
-#   ButtonGuide=0xE1           # Left Shift (Xbox button)
-#   ButtonA=0x28               # Enter
-#   ButtonB=0x29               # Escape
-#   ButtonX=0x2A               # Backspace
-#   ButtonY=0x2B               # Tab
+#   ButtonDpadUp=KeyUp
+#   ButtonDpadDown=KeyDown
+#   ButtonDpadLeft=KeyLeft
+#   ButtonDpadRight=KeyRight
+#   ButtonStart=KeySpace
+#   ButtonBack=KeyTab
+#   ButtonLeftThumb=KeyLeftCtrl      # L3 button
+#   ButtonRightThumb=KeyLeftAlt      # R3 button
+#   ButtonLeftShoulder=KeyPageUp     # LB
+#   ButtonRightShoulder=KeyPageDown  # RB
+#   ButtonGuide=KeyLeftShift         # Xbox button
+#   ButtonA=KeyEnter
+#   ButtonB=KeyEscape
+#   ButtonX=KeyBackspace
+#   ButtonY=KeyTab
 #
 # Examples - Uncomment to customize:
-# ButtonA=0x29               # Swap A and B
-# ButtonB=0x28               # Swap B and A
-# ButtonDpadUp=0x1A          # W key for up
-# ButtonStart=0xFF           # Disable Start button
+# ButtonA=KeyEscape          # Swap A and B
+# ButtonB=KeyEnter           # Swap B and A
+# ButtonDpadUp=KeyW          # W key for up
+# ButtonStart=Disabled       # Disable Start button
 
 # ==================
 # Analog Stick Configuration
@@ -107,10 +104,10 @@ LeftStickMouseCurve=2            # Response curve:
 # To use as direction keys, uncomment and change mode:
 # LeftStickMode=Keys
 # LeftStickDirectionMode=4       # 4=4-way, 8=8-way
-# LeftStickUpMapping=0x52        # Up Arrow
-# LeftStickDownMapping=0x51      # Down Arrow
-# LeftStickLeftMapping=0x50      # Left Arrow
-# LeftStickRightMapping=0x4F     # Right Arrow
+# LeftStickUpMapping=KeyUp
+# LeftStickDownMapping=KeyDown
+# LeftStickLeftMapping=KeyLeft
+# LeftStickRightMapping=KeyRight
 
 # ==================
 # Right Stick (default: Scroll mode)
@@ -132,10 +129,10 @@ RightStickScrollSensitivity=30   # 1-100, higher = faster scroll
 # Alternative 1: Use as direction keys (WASD)
 # RightStickMode=Keys
 # RightStickDirectionMode=4       # 4=4-way, 8=8-way
-# RightStickUpMapping=0x1A        # W
-# RightStickDownMapping=0x16      # S
-# RightStickLeftMapping=0x04      # A
-# RightStickRightMapping=0x07     # D
+# RightStickUpMapping=KeyW
+# RightStickDownMapping=KeyS
+# RightStickLeftMapping=KeyA
+# RightStickRightMapping=KeyD
 
 # Alternative 2: Disable right stick
 # RightStickMode=Disabled
@@ -151,19 +148,19 @@ RightStickScrollSensitivity=30   # 1-100, higher = faster scroll
 # 1. Complete Mouse Control (DEFAULT - Recommended):
 #      LeftStickMode=Mouse         # Move cursor
 #      RightStickMode=Scroll       # Scroll wheel
-#      RightTrigger=0xF0           # Mouse left click
-#      LeftTrigger=0xF1            # Mouse right click
+#      RightTrigger=MouseLeft      # Mouse left click
+#      LeftTrigger=MouseRight      # Mouse right click
 #
 # 2. BIOS Menu Navigation:
 #      LeftStickMode=Keys          # Arrow keys
 #      RightStickMode=Disabled     # Unused
-#      RightTrigger=0x4D           # End key
-#      LeftTrigger=0x4C            # Delete key
+#      RightTrigger=KeyEnd
+#      LeftTrigger=KeyDelete
 #
 # 3. GRUB with Basic Mouse:
 #      LeftStickMode=Mouse         # Move cursor only
 #      RightStickMode=Disabled     # No scroll
-#      RightTrigger=0xF0           # Left click
+#      RightTrigger=MouseLeft      # Left click
 #
 # 4. Dual Stick Navigation:
 #      LeftStickMode=Keys          # Arrow keys
@@ -199,19 +196,27 @@ RightStickScrollSensitivity=30   # 1-100, higher = faster scroll
 # Device3=
 
 # ==================
-# USB HID Scan Code Reference
+# Key Names Reference
 # ==================
-# Common scan codes for button mappings:
+# Semantic key names (RECOMMENDED - easier to read and remember):
+#   Letters:    KeyA-KeyZ
+#   Numbers:    Key0-Key9
+#   Special:    KeyEnter, KeyEscape, KeyBackspace, KeyTab, KeySpace
+#   Arrows:     KeyUp, KeyDown, KeyLeft, KeyRight
+#   Navigation: KeyHome, KeyEnd, KeyPageUp, KeyPageDown
+#   Functions:  KeyF1-KeyF12
+#   Modifiers:  KeyLeftCtrl, KeyRightCtrl, KeyLeftShift, KeyRightShift
+#               KeyLeftAlt, KeyRightAlt, KeyLeftWin, KeyRightWin
+#   Mouse:      MouseLeft, MouseRight, MouseMiddle, ScrollUp, ScrollDown
+#   Disabled:   Disabled, None, Off
+#
+# Hex codes still supported for compatibility:
 #   0x28 = Enter          0x29 = Escape        0x2A = Backspace
-#   0x2B = Tab            0x2C = Space         0x2D = Minus
-#   0x4A = Home           0x4B = Page Up       0x4C = Delete
-#   0x4D = End            0x4E = Page Down     0x4F = Right Arrow
-#   0x50 = Left Arrow     0x51 = Down Arrow    0x52 = Up Arrow
-#   0xE0 = Left Control   0xE1 = Left Shift    0xE2 = Left Alt
-#   0xE3 = Left GUI       0xE4 = Right Control 0xE5 = Right Shift
-#   0xE6 = Right Alt      0xE7 = Right GUI
+#   0x2B = Tab            0x2C = Space         0x4F-0x52 = Arrow keys
+#   0xE0-0xE7 = Modifiers 0xF0-0xF4 = Mouse functions
 #   0xFF = Disabled
 #
+# Full key name list: See Xbox360KeyNames.h in source code
 # Full USB HID specification:
 # https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf
 

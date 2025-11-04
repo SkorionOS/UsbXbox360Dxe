@@ -36,6 +36,7 @@
   Xbox360Device.h
   Xbox360Config.c
   Xbox360Config.h
+  Xbox360KeyNames.h
   Xbox360Input.c
   Xbox360Input.h
   AsusAllyDevice.c
