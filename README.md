@@ -9,7 +9,8 @@ This driver is modified from [edk2](https://github.com/tianocore/edk2) USB keybo
 - **Mouse Emulation**: Analog sticks can control mouse cursor and scroll wheel (via EFI_SIMPLE_POINTER_PROTOCOL)
 - **Trigger Button Support**: Left and Right triggers can be mapped to keyboard keys or mouse buttons
 - **Flexible Stick Modes**: Each stick can independently operate in Mouse, Keys, Scroll, or Disabled mode
-- **Configuration File Support**: Customize settings via INI file on ESP partition
+- **Configuration File Support**: Customize settings via INI file on ESP partition with semantic key names
+- **Semantic Key Names**: Use readable names like `KeyEnter`, `MouseLeft` instead of hex codes
 - **Custom Device Support**: Add your own Xbox 360 protocol compatible devices
 - **Auto-configuration**: Driver creates default config on first boot
 - **Debug Logging**: Automatic logging to ESP partition with rotation and cleanup
@@ -67,11 +68,10 @@ The driver supports configuration via an INI file on your ESP partition. On firs
 #### Basic Settings
 - **Deadzone**: Analog stick deadzone (0-32767, default: 8000)
 - **TriggerThreshold**: Trigger activation threshold (0-255, default: 128)
-- **LeftTrigger/RightTrigger**: Trigger mappings (USB HID scan codes or mouse function codes)
-  - `0xF0` = Mouse Left Button (default for RT)
-  - `0xF1` = Mouse Right Button (default for LT)
-  - `0xF3` = Scroll Up, `0xF4` = Scroll Down
-  - `0x00-0xE7` = Keyboard keys (USB HID scan codes)
+- **LeftTrigger/RightTrigger**: Trigger mappings (semantic names or hex codes)
+  - Semantic names (recommended): `MouseLeft`, `MouseRight`, `KeyEnter`, `KeyEscape`, etc.
+  - Mouse functions: `MouseLeft`, `MouseRight`, `MouseMiddle`, `ScrollUp`, `ScrollDown`
+  - Hex codes (legacy): `0xF0-0xF4` for mouse, `0x00-0xE7` for keyboard keys
 
 #### Stick Mode Configuration
 Each stick can be configured independently:
@@ -87,8 +87,18 @@ Each stick can be configured independently:
   - Direction mappings (e.g., `LeftStickUp`, `RightStickDown`)
   - `DirectionMode`: 4 or 8-way (default: 4)
 
+#### Button Mappings
+- **Semantic Key Names**: Use readable names for all button mappings
+  - Common keys: `KeyEnter`, `KeyEscape`, `KeySpace`, `KeyTab`, `KeyBackspace`
+  - Arrow keys: `KeyUp`, `KeyDown`, `KeyLeft`, `KeyRight`
+  - Navigation: `KeyPageUp`, `KeyPageDown`, `KeyHome`, `KeyEnd`
+  - Modifiers: `KeyLeftCtrl`, `KeyLeftAlt`, `KeyLeftShift`
+  - Mouse: `MouseLeft`, `MouseRight`, `MouseMiddle`
+  - Disable: `Disabled` or `0xFF`
+- **Hex Codes**: Still supported for backward compatibility (e.g., `0x28` for Enter)
+- See `config.ini.example` for complete key name reference
+
 #### Other Options
-- **Button Mappings**: Customize all 16 buttons (see `config.ini.example`)
 - **Custom Devices**: Add your own Xbox 360 compatible devices
 
 Example configuration:
@@ -97,9 +107,14 @@ Version=1.0
 Deadzone=8000
 TriggerThreshold=128
 
-# Triggers as mouse buttons (default)
-RightTrigger=0xF0    # Mouse Left Button
-LeftTrigger=0xF1     # Mouse Right Button
+# Triggers as mouse buttons (default) - using semantic names
+RightTrigger=MouseLeft
+LeftTrigger=MouseRight
+
+# Button customization with semantic names
+ButtonA=KeyEnter
+ButtonB=KeyEscape
+ButtonStart=KeySpace
 
 # Left stick: Mouse mode (default)
 LeftStickMode=Mouse
@@ -109,6 +124,13 @@ LeftStickMouseMaxSpeed=20
 # Right stick: Scroll mode (default)
 RightStickMode=Scroll
 RightStickScrollSensitivity=30
+
+# Alternative: Use Keys mode with semantic names
+# LeftStickMode=Keys
+# LeftStickUpMapping=KeyW
+# LeftStickDownMapping=KeyS
+# LeftStickLeftMapping=KeyA
+# LeftStickRightMapping=KeyD
 
 # Add custom devices
 # [CustomDevices]
