@@ -2,13 +2,12 @@
   ASUS ROG Ally Device Detection and Handling
   
   This module implements DirectInput support for ASUS ROG Ally devices that
-  do not provide XInput mode. Implementation is based on Linux kernel's
-  hid-asus.c driver.
+  do not provide XInput mode.
   
-  References:
-  - Linux kernel: drivers/hid/hid-asus.c
-  - Linux kernel: drivers/input/joystick/xpad.c
-
+  HID protocol specification reference:
+  - https://github.com/flukejones/linux (wip/ally-6.14-refactor branch)
+    drivers/hid/asus-ally-hid/ by Luke Jones <luke@ljones.dev>
+  
   Copyright (c) 2024-2025. All rights reserved.
   SPDX-License-Identifier: BSD-2-Clause-Patent
 
@@ -22,7 +21,6 @@
 
 //
 // ASUS ROG Ally Device IDs
-// Reference: Linux kernel hid-asus.c
 //
 #define ASUS_VENDOR_ID  0x0B05
 
@@ -38,7 +36,6 @@
 
 //
 // ASUS ROG Ally X HID Report Structure
-// Based on Linux kernel: drivers/hid/asus-ally-hid/asus-ally-hid-input.c
 //
 // Report ID: 0x0B
 // Report Length: 16 bytes (after report ID byte)
@@ -66,7 +63,6 @@ typedef struct {
 
 //
 // ASUS ROG Ally Button Bit Definitions
-// Based on Linux kernel: drivers/hid/asus-ally-hid/asus-ally-hid-input.c
 //
 // Buttons[0] - byte offset 13 in report
 #define ALLY_BTN_A        BIT0  // A button
@@ -115,9 +111,6 @@ IsAsusAlly (
 /**
   Initialize ASUS ROG Ally X device for input.
   
-  Sends EC initialization string and checks device ready status,
-  based on Linux kernel driver behavior.
-  
   @param  UsbIo    Pointer to USB I/O Protocol
   
   @retval EFI_SUCCESS     Device initialized successfully
@@ -130,10 +123,6 @@ InitializeAsusAlly (
 
 /**
   Parse ASUS ROG Ally X HID report and convert to Xbox 360 format.
-  
-  This function translates the Ally X DirectInput report into
-  the internal Xbox 360 format used by the driver, allowing seamless
-  integration without modifying the rest of the driver.
   
   @param  AllyReport   Pointer to Ally X HID report data (Report ID 0x0B)
   @param  ReportLen    Length of the report (17 bytes)

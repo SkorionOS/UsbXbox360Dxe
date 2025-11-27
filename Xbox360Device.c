@@ -16,9 +16,8 @@
 #include "AsusAllyDevice.h"
 
 //
-// Known Xbox 360 protocol compatible devices
-// All devices verified against Linux kernel xpad driver (XTYPE_XBOX360)
-// Reference: linux/drivers/input/joystick/xpad.c
+// Known Xbox 360 compatible devices
+// VID/PID reference: Linux kernel xpad driver
 //
 STATIC CONST XBOX360_COMPATIBLE_DEVICE  mXbox360BuiltinDevices[] = {
   //

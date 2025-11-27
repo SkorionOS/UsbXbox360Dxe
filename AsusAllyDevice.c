@@ -2,13 +2,11 @@
   ASUS ROG Ally Device Implementation
   
   This module provides DirectInput support for ASUS ROG Ally devices.
-  Implementation is based on Linux kernel's hid-asus.c driver.
   
-  References:
-  - Linux kernel: drivers/hid/hid-asus.c
-  - Linux kernel: drivers/input/joystick/xpad.c
-  - https://github.com/torvalds/linux/blob/master/drivers/hid/hid-asus.c
-
+  HID protocol specification reference:
+  - https://github.com/flukejones/linux (wip/ally-6.14-refactor branch)
+    drivers/hid/asus-ally-hid/ by Luke Jones <luke@ljones.dev>
+  
   Copyright (c) 2024-2025. All rights reserved.
   SPDX-License-Identifier: BSD-2-Clause-Patent
 
@@ -107,8 +105,7 @@ IsAsusAlly (
 /**
   Initialize ASUS ROG Ally device for input.
   
-  Based on Linux kernel: drivers/hid/asus-ally-hid/asus-ally-hid-core.c
-  Sends EC initialization string and checks device ready status.
+  Sends initialization sequence to configure the device for gamepad input.
   
   @param  UsbIo    Pointer to USB I/O Protocol
   
@@ -128,7 +125,7 @@ InitializeAsusAlly (
   UINT8                         InterfaceNumber;
   UINTN                         Retry;
   
-  // EC_INIT_STRING from Linux kernel
+  // EC initialization string
   STATIC CONST UINT8 EcInitString[] = { 
     0x5A, 'A', 'S', 'U', 'S', ' ', 'T', 'e', 'c', 'h', '.', 'I', 'n', 'c', '.', '\0' 
   };
@@ -289,8 +286,7 @@ InitializeAsusAlly (
   }
   
   //
-  // Critical: Set gamepad mode to enable interrupt reports
-  // Based on Linux: ally_set_default_gamepad_mode()
+  // Set gamepad mode to enable interrupt reports
   //
   
   ZeroMem (Buffer, sizeof(Buffer));
@@ -325,8 +321,7 @@ InitializeAsusAlly (
   gBS->Stall (50000);  // 50ms
   
   //
-  // Disable force feedback (from Linux kernel)
-  // FORCE_FEEDBACK_OFF packet
+  // Disable force feedback
   //
   
   ZeroMem (Buffer, sizeof(Buffer));
@@ -419,11 +414,7 @@ AsusAllyPollingHandler (
 /**
   Parse ASUS ROG Ally HID report and convert to Xbox 360 format.
   
-  This is the key function that translates ASUS ROG Ally DirectInput reports
-  into Xbox 360 format, allowing the rest of the driver to work unchanged.
-  
-  Implementation based on Linux kernel: 
-  drivers/hid/asus-ally-hid/asus-ally-hid-input.c
+  Converts Ally DirectInput report to internal Xbox 360 format.
   
   @param  AllyReport   Pointer to ASUS Ally HID report data
   @param  ReportLen    Length of the report
